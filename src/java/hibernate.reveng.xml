@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="cafe"/>
+  <table-filter match-name="gider_turu"/>
+  <table-filter match-name="kampanya"/>
+  <table-filter match-name="stok"/>
+  <table-filter match-name="firma"/>
+  <table-filter match-name="yetki"/>
+  <table-filter match-name="gelir"/>
+  <table-filter match-name="diger_gider"/>
+  <table-filter match-name="urun_tur"/>
+  <table-filter match-name="cihaz"/>
+  <table-filter match-name="urun"/>
+  <table-filter match-name="masa_no"/>
+  <table-filter match-name="personel"/>
+  <table-filter match-name="siparis"/>
+  <table-filter match-name="log_durum"/>
+  <table-filter match-name="gider"/>
+  <table-filter match-name="masa"/>
+  <table-filter match-name="log"/>
+  <table-filter match-name="tablo"/>
+</hibernate-reverse-engineering>

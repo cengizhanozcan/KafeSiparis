@@ -1,0 +1,102 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package bean.UrunTuru;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import model.UrunTur;
+import ws.WSUrunTuru;
+
+/**
+ *
+ * @author cengizhan
+ */
+@ManagedBean(name = "urunTuruInsertBean")
+@ViewScoped
+public class UrunTuruInsertBean {
+
+    private UrunTur urunTuru; 
+    private UrunTur deleteUrunTuru;
+    private List<UrunTur> listUrunTuru;
+    
+    private WSUrunTuru urunTuruWS;
+    
+    
+    public UrunTuruInsertBean() {
+        
+        urunTuru = new UrunTur();
+        deleteUrunTuru  = new UrunTur();
+        urunTuruWS = new WSUrunTuru();
+        listele();
+    }
+
+    public void insertUrunTuru(){
+    
+        urunTuru.setIsAktif(true);
+        urunTuruWS.insert(urunTuru);
+        
+        listele();
+    }
+    
+    public void listele(){
+    
+        listUrunTuru = new ArrayList<>();
+        listUrunTuru = urunTuruWS.listele();
+    }
+    
+    public void delete(){
+        listUrunTuru.remove(deleteUrunTuru);
+        deleteUrunTuru.setIsAktif(false);
+        
+        urunTuruWS.update(deleteUrunTuru);
+    }
+    
+    /**
+     * @return the urunTuru
+     */
+    public UrunTur getUrunTuru() {
+        return urunTuru;
+    }
+
+    /**
+     * @param urunTuru the urunTuru to set
+     */
+    public void setUrunTuru(UrunTur urunTuru) {
+        this.urunTuru = urunTuru;
+    }
+
+    /**
+     * @return the listUrunTuru
+     */
+    public List<UrunTur> getListUrunTuru() {
+        return listUrunTuru;
+    }
+
+    /**
+     * @param listUrunTuru the listUrunTuru to set
+     */
+    public void setListUrunTuru(List<UrunTur> listUrunTuru) {
+        this.listUrunTuru = listUrunTuru;
+    }
+
+    /**
+     * @return the deleteUrunTuru
+     */
+    public UrunTur getDeleteUrunTuru() {
+        return deleteUrunTuru;
+    }
+
+    /**
+     * @param deleteUrunTuru the deleteUrunTuru to set
+     */
+    public void setDeleteUrunTuru(UrunTur deleteUrunTuru) {
+        this.deleteUrunTuru = deleteUrunTuru;
+    }
+    
+}

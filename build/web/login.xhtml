@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+
+        <!-- Bootstrap Core CSS -->
+        <link href="#{request.contextPath}/resources/css/bootstrap.min.css" rel="stylesheet"/>
+
+        <!-- MetisMenu CSS -->
+        <link href="#{request.contextPath}/resources/css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet" />
+
+        <!-- Custom CSS -->
+        <link href="#{request.contextPath}/resources/css/sb-admin-2.css" rel="stylesheet" />
+
+        <!-- Custom Fonts -->
+        <link href="#{request.contextPath}/resources/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- jQuery Version 1.11.0 -->
+        <script src="#{request.contextPath}/resources/js/jquery-1.11.0.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="#{request.contextPath}/resources/js/plugins/metisMenu/metisMenu.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="#{request.contextPath}/resources/js/sb-admin-2.js"></script> 
+
+    </h:head>
+
+    <h:body>
+        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" escape="false" />
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Giriş Yapınız</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h:form role="form">
+
+                                <fieldset>
+                                    <h:panelGrid columns="2" class="form-group">
+                                        <h:outputLabel for="userName" value="Kullanıcı Adı:" style="font-weight:bold" />
+                                        <p:inputText id="userName" required="true" value="#{loginBean.personel.kullaniciAd}"
+                                                     requiredMessage="Lütfen Kullanıcı Adınızı Giriniz."/>
+
+                                        <h:outputLabel for="password" value="Şifre:" style="font-weight:bold" />
+                                        <p:password id="password" value="#{loginBean.personel.sifre}" 
+                                                    requiredMessage="Lütfen Şifrenizi Giriniz." />
+
+                                    </h:panelGrid>
+                                    <!-- Change this to a button or input when using this as a form -->
+                                    <p:commandButton type="submit" value="Giriş" action="#{loginBean.login()}"
+                                                     ajax="false" class="btn btn-lg btn-success btn-block" />
+                                    <h:link outcome="/Yonetim/Personel/PersonelSignup.xhtml" value="Kayıt ol" />
+                                </fieldset>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </h:body>
+</html>
+

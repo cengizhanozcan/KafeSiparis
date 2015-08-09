@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="../../Templates/Template.xhtml">
+        <ui:define name="top">
+            Personel Güncelleme
+        </ui:define>
+
+        <ui:define name="center">
+            <h:form>
+                <div class="row">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" escape="false" />
+
+                    <h:panelGrid columns="2">
+
+                        <h:outputText value="Ad: "/>
+                        <p:inplace >
+                            <p:inputText value="#{personelUpdateBean.personel.personelAd}" 
+                                         required="true" requiredMessage="Lütfen Adınızı Giriniz."/>
+                        </p:inplace>
+
+                        <h:outputText value="Soyad: " />
+                        <p:inplace>
+                            <p:inputText value="#{personelUpdateBean.personel.personelSoyad}" 
+                                         required="true" requiredMessage="Lütfen Soyadınızı Giriniz."/>
+                        </p:inplace>
+
+                        <h:outputText value="TC Kimlik No: " />
+                        <p:inplace>
+                            <p:inputMask mask="99999999999" value="#{personelUpdateBean.personel.tc}"
+                                         required="true" requiredMessage="Lütfen TC Kimlik No Giriniz." />
+                        </p:inplace>
+
+                        <h:outputText value="Şifre: " />
+                        <p:password id="password1" value="#{personelUpdateBean.personel.sifre}" required="true" 
+                                    requiredMessage="Lütfen Şifrenizi Giriniz." match="password2" 
+                                    feedback="true" promptLabel="Lütfen şifre giriniz" weakLabel="Zayıf"
+                                    goodLabel="Orta seviye" strongLabel="Güçlü" 
+                                    validatorMessage="Şifreler Eşleşmiyor."/>
+
+                        <h:outputText value="Şifre Tekrar: " />
+                        <p:password id="password2" value="#{personelUpdateBean.personel.sifre}" required="true"
+                                    requiredMessage="Lütfen Şifrenizi Giriniz." />
+
+                         <h:outputText value="GSM No: " />
+                         <p:inputMask value="#{personelUpdateBean.personel.telefon}" required="true" 
+                                      mask="09999999999" size="11" maxlength="11" 
+                                      requiredMessage="Lütfen GSM Numarasını Giriniz." />
+                                      
+                         <h:outputText value="Yetki: " />
+                         <p:selectOneMenu  value="#{personelUpdateBean.yetki.yetkiId}" 
+                                           required="true" requiredMessage="Lütfen Yetki Seçiniz.">
+                             <f:selectItem itemValue="" itemLabel="Lütfen Yetki Seçiniz."/>
+                             <f:selectItems value="#{personelUpdateBean.listYetki}" var="listYetki"
+                                            itemValue="#{listYetki.yetkiId}" itemLabel="#{listYetki.yetkiAd}" />
+                         </p:selectOneMenu>
+                        
+                    </h:panelGrid>
+                    
+                    <p:commandButton value="Güncelle" action="#{personelUpdateBean.update()}" 
+                                     ajax="false" type="submit" />
+                </div>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+

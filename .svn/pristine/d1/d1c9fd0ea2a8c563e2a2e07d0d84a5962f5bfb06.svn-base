@@ -1,0 +1,48 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package bean.UrunTuru;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import model.UrunTur;
+
+/**
+ *
+ * @author cengizhan
+ */
+@ManagedBean(name = "urunTuruInsertBean")
+@ViewScoped
+public class UrunTuruInsertBean {
+
+    private UrunTur urunTuru; 
+    
+    public UrunTuruInsertBean() {
+        
+        urunTuru = new UrunTur();
+    }
+
+    public void insertUrunTuru(){
+    
+        
+    }
+    
+    
+    /**
+     * @return the urunTuru
+     */
+    public UrunTur getUrunTuru() {
+        return urunTuru;
+    }
+
+    /**
+     * @param urunTuru the urunTuru to set
+     */
+    public void setUrunTuru(UrunTur urunTuru) {
+        this.urunTuru = urunTuru;
+    }
+    
+}

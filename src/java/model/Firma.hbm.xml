@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 14, 2015 12:58:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Firma" table="firma" catalog="cafe" optimistic-lock="version">
+        <id name="firmaId" type="java.lang.Integer">
+            <column name="firma_id" />
+            <generator class="identity" />
+        </id>
+        <property name="firmaAd" type="string">
+            <column name="firma_ad" length="45" not-null="true" />
+        </property>
+        <property name="telefon" type="string">
+            <column name="telefon" length="11" />
+        </property>
+        <property name="fax" type="string">
+            <column name="fax" length="11" />
+        </property>
+        <property name="adres" type="string">
+            <column name="adres" length="65535" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+        <set name="stoks" table="stok" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="firma_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Stok" />
+        </set>
+    </class>
+</hibernate-mapping>

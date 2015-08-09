@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2014 9:26:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.DigerGider" table="diger_gider" catalog="cafe">
+        <id name="digerGiderId" type="java.lang.Integer">
+            <column name="diger_gider_id" />
+            <generator class="identity" />
+        </id>
+        <property name="adi" type="string">
+            <column name="adi" length="45" />
+        </property>
+        <property name="miktari" type="java.lang.Float">
+            <column name="miktari" precision="12" scale="0" />
+        </property>
+        <property name="aciklama" type="string">
+            <column name="aciklama" length="65535" />
+        </property>
+        <property name="alisTarihi" type="timestamp">
+            <column name="alis_tarihi" length="19" />
+        </property>
+        <property name="isAktif" type="java.lang.Boolean">
+            <column name="is_aktif" />
+        </property>
+        <set name="giders" table="gider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="diger_gider_id" />
+            </key>
+            <one-to-many class="model.Gider" />
+        </set>
+    </class>
+</hibernate-mapping>

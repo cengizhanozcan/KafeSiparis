@@ -1,0 +1,74 @@
+s<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Personel Kayıt
+        </ui:define>
+        
+        <ui:define name="center">
+            <h:form>
+                <div class="row">
+                     <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" escape="false" />
+                     
+                     <h:panelGrid columns="2">
+                         <h:outputText value="Ad: " />
+                         <p:inputText value="#{personelInsertBean.personel.personelAd}" required="true"
+                                      requiredMessage="Lütfen Adınızı Giriniz."/>
+                         
+                         <h:outputText value="Soyad: " />
+                         <p:inputText value="#{personelInsertBean.personel.personelSoyad}" required="true"
+                                      requiredMessage="Lütfen Soyadınızı Giriniz."/>
+                         
+                         <h:outputText value="Kullanıcı Adı: " />
+                         <p:inputText value="#{personelInsertBean.personel.kullaniciAd}" required="true"
+                                      requiredMessage="Lütfen Kullanıcı Adınızı Giriniz."/>
+                         
+                         <h:outputText value="Şifre: " />
+                         <p:password id="password1" value="#{personelInsertBean.personel.sifre}" required="true" 
+                                     requiredMessage="Lütfen Şifrenizi Giriniz." match="password2" 
+                                     feedback="true" promptLabel="Lütfen şifre giriniz" weakLabel="Zayıf"
+                                     goodLabel="Orta seviye" strongLabel="Güçlü" 
+                                     validatorMessage="Şifreler Eşleşmiyor."/>
+                         
+                         <h:outputText value="Şifre Tekrar: " />
+                         <p:password id="password2" value="#{personelInsertBean.personel.sifre}" required="true"
+                                     requiredMessage="Lütfen Şifrenizi Giriniz." />
+                         
+                         <h:outputText value="Tc Kimlik No: " />
+                         <p:inputMask value="#{personelInsertBean.personel.tc}" required="true" 
+                                      mask="99999999999" validatorMessage="TC Kimlik Numarası 11 Haneden Az veya Fazla Olamaz."
+                                      requiredMessage="Lütfen Tc Kimlik Numarasını Giriniz."  >
+                             
+                             <f:validateLength minimum="11" maximum="11" />
+                         </p:inputMask>
+                         
+                         <h:outputText value="GSM No: " />
+                         <p:inputMask value="#{personelInsertBean.personel.telefon}" required="true" 
+                                      mask="(0999) 999-9999" size="14" maxlength="14" 
+                                      requiredMessage="Lütfen GSM Numarasını Giriniz." />
+                                      
+                         <h:outputText value="Yetki: " />
+                         <p:selectOneMenu  value="#{personelInsertBean.yetki.yetkiId}" 
+                                           required="true" requiredMessage="Lütfen Yetki Seçiniz.">
+                             <f:selectItem itemValue="" itemLabel="Lütfen Yetki Seçiniz."/>
+                             <f:selectItems value="#{personelInsertBean.listYetki}" var="listYetki"
+                                            itemValue="#{listYetki.yetkiId}" itemLabel="#{listYetki.yetkiAd}" />
+                         </p:selectOneMenu>
+                     </h:panelGrid>
+                     
+                     <p:commandButton type="submit" action="#{personelInsertBean.insertPersonel()}" 
+                                      ajax="false" value="Kaydet" />
+                     
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+

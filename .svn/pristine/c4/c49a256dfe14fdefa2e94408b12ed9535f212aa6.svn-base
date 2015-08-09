@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Ürün Ekle
+        </ui:define>
+        <ui:define name="center"> 
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="urunAdi" value="Ürün Adı:"/> 
+                    <p:autoComplete id="urunAdi" value="#{urunEkleBean.urun.urunAd}" required="true" 
+                                    requiredMessage="Lütfen Ürün Adını Giriniz..."
+                                    completeMethod="#{urunEkleBean.listUrun()}" maxResults="40" >
+
+                        <p:ajax event="itemSelect" listener="#{urunEkleBean.itemSelectUrunAd()}" 
+                                update="satisFiyatiLabel alisFiyatiLabel alisTarihiLabel" />
+                    </p:autoComplete>
+
+                    <h:outputLabel for="urunTuruLabel" value="Ürün Türü:" />
+                    <p:selectOneMenu id="urunTuruLabel" value="#{urunEkleBean.urunTuru.urunTurId}" 
+                                     required="true" requiredMessage="Lütfen Ürün Türünü Seçiniz.">
+                        <f:selectItem itemValue="" itemLabel="Lütfen Ürün Türünü Seçiniz." />
+                        <f:selectItems value="#{urunEkleBean.listUrunTuru}" var="urunTuru" 
+                                       itemValue="#{urunTuru.urunTurId}" itemLabel="#{urunTuru.turAdi}" />
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="firmaLabel" value="Firma: " />
+                    <p:selectOneMenu id="firmaLabel" value="#{urunEkleBean.firma.firmaId}"  
+                                     required="true" requiredMessage="Lütfen Firmayı Seçiniz.">
+                        <f:selectItem itemValue="" itemLabel="Lütfen Firmayı Seçiniz." />
+                        <f:selectItems value="#{urunEkleBean.listFirma}" var="firma"
+                                       itemValue="#{firma.firmaId}" itemLabel="#{firma.firmaAd}" /> 
+
+                    </p:selectOneMenu>
+                    
+                    <h:outputLabel for="adetLabel" value="Alınan Adet: "/>
+                    <p:inputText id="adetLabel" value="#{urunEkleBean.alinanUrunAdedi}" 
+                                 required="true" requiredMessage="Lütfen Alınan Adet Miktarını Giriniz." />
+                    
+                    <h:outputLabel for="satisFiyatiLabel" value="Satış Fiyatı: " />
+                    <p:inputText id="satisFiyatiLabel" value="#{urunEkleBean.satisFiyati}" 
+                                 required="true" requiredMessage="Lütfen Satiş Fiyatını Giriniz."/>
+
+                    <h:outputLabel for="alisFiyatiLabel" value="Alış Fiyatı:" />
+                    <p:inputText id="alisFiyatiLabel" value="#{urunEkleBean.alisFiyati}" 
+                                 required="true" requiredMessage="Lütfen Alış Fiyatını Giriniz."/>
+
+                    <h:outputLabel for="alisTarihiLabel" value="Alış Tarihi: " />
+                    <p:calendar id="alisTarihiLabel" value="#{urunEkleBean.urunAlisTarihi}" locale="tr" required="true" 
+                                effect="fold"   pattern="yyyy-MM-dd" requiredMessage="Lütfen Tarihi Seçiniz." >
+                    </p:calendar>
+                    
+                    <p:commandButton type="submit" action="#{urunEkleBean.insert()}" ajax="false" value="Kaydet"/>
+
+                </h:panelGrid>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Personel Sil
+        </ui:define>
+
+        <ui:define name="center">
+            <h:form>
+                <div class="row">
+                    <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" escape="false" />
+ 
+                    <p:dataTable id="dTPersonel" var="personel" value="#{personelDeleteBean.listPersonel}"  >
+                        
+                        <p:column headerText="Ad Soyad">
+                            <h:outputText value="#{personel.personelAd} #{personel.personelSoyad}" />
+                        </p:column>
+                        <p:column headerText="Yetki">
+                            <h:outputText value="#{personel.yetki.yetkiAd}" />
+                        </p:column>
+                        <p:column headerText="Kullanıcı Adı">
+                            <h:outputText value="#{personel.kullaniciAd}" />
+                        </p:column>
+                        <p:column headerText="TC Kimlik No" >
+                            <h:outputText value="#{personel.tc}" />
+                        </p:column> 
+                        <p:column headerText="Telefon">
+                            <h:outputText value="#{personel.telefon}" />
+                        </p:column>
+                        <p:column headerText="">
+                            <p:commandButton value="Sil" action="#{personelDeleteBean.deletePersonel()}" 
+                                             update="dTPersonel" >
+                                <f:setPropertyActionListener value="#{personel}" target="#{personelDeleteBean.personel}" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                 </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

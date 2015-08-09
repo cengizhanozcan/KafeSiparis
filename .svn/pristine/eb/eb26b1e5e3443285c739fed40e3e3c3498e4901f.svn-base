@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Masalar
+        </ui:define>
+        <ui:define name="center">
+            <h:form>
+               
+                <div class="row">
+                    <ui:repeat var="masa" value="#{masaBean.listMasaNo}">
+                        <div class="col-lg-3">
+
+                            <h:commandButton action="#{masaBean.navigation()}" value="Confirm">
+                                <f:setPropertyActionListener target="#{masaBean.masaId}"
+                                                             value="#{masa.masaNoId}" />
+                            </h:commandButton>
+
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Masa
+                                </div>
+                                <div class="panel-body">
+                                    <p> Masa No: </p>
+                                    <h:outputText value="#{masa.numara}" />
+                                </div>
+                            </div>  
+                        </div>
+                    </ui:repeat>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

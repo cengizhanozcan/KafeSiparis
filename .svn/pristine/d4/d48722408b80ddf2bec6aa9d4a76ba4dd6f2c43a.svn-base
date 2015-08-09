@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2014 9:26:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.UrunTur" table="urun_tur" catalog="cafe">
+        <id name="urunTurId" type="java.lang.Integer">
+            <column name="urun_tur_id" />
+            <generator class="identity" />
+        </id>
+        <property name="turAdi" type="string">
+            <column name="tur_adi" length="30" not-null="true" />
+        </property>
+        <property name="ustTur" type="int">
+            <column name="ust_tur"/>
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+        <property name="isAlt" type="boolean">
+            <column name="is_alt" />
+        </property>
+        <set name="uruns" table="urun" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="urun_tur_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Urun" />
+        </set>
+    </class>
+</hibernate-mapping>

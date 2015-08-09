@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+ 
+    
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Detaylı Gelir Raporu
+        </ui:define>
+        <ui:define name="center">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="startDate" value="Başlangıç Tarihi: " />
+                    <p:calendar id="startDate" value="#{gelirRaporBean.startDate}" />
+                    
+                    <h:outputLabel for="finishDate" value="Bitiş Tarihi: " />
+                    <p:calendar id="finishDate" value="#{gelirRaporBean.endDate}" />
+                    <p:commandButton value="Getir" id="ajax" update="gelirId" actionListener="#{gelirRaporBean.listeleGelirRapor()}"   />
+  
+                    
+                </h:panelGrid>
+                
+                <p:dataTable id="gelirId" var="gelir" value="#{gelirRaporBean.listGelir}" >
+                    
+                    <p:columnGroup type="header">
+                                
+                        <p:row>
+                            <p:column headerText="Urun Adı" />
+                            <p:column headerText="Urun Türü" />
+                            <p:column headerText="Firma Adı" />
+                            <p:column headerText="Birim fiyati" />
+                            <p:column headerText="Satılan Adet" />
+                            <p:column headerText="Toplam Tutar" />
+                            <p:column headerText="Tarih" />
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column  >
+                        <h:outputText value="#{gelir.stok.urun.urunAd}" /> 
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gelir.stok.urun.urunTur.turAdi}" />
+                    </p:column>
+                    
+                    <p:column  >
+                        <h:outputText value="#{gelir.stok.firma.firmaAd}" />
+                    </p:column>
+                    
+                    
+                    <p:column  >
+                        <h:outputText value="#{gelir.stok.urun.satisFiyati}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gelir.satilanAdet}" />
+                    </p:column>
+                    
+                    <p:column  >
+                        <h:outputText value="#{gelir.satisFiyati}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+                    
+                    <p:column  >
+                        <h:outputText value="#{gelir.masa.gelir.tarih}" />
+                    </p:column>
+                    
+                    <p:columnGroup type="footer">
+                        <p:row>
+                            <p:column colspan="5" style="text-align:right" footerText="Toplam:" />
+                            <p:column footerText="#{gelirRaporBean.toplamTutar} TL" />
+
+                        </p:row>
+                    </p:columnGroup>
+
+
+
+                </p:dataTable>
+                
+            </h:form>
+            
+        </ui:define>
+        
+     </ui:composition>
+    
+</html>
+

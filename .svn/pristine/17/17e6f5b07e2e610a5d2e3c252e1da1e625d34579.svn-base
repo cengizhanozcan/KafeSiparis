@@ -1,0 +1,77 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package bean.Siparis;
+
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import model.Siparis;
+import ws.WSSiparis;
+
+/**
+ *
+ * @author cengizhan
+ */
+@ManagedBean(name = "siparisListeleBean")
+@RequestScoped
+public class SiparisListeleBean {
+
+    WSSiparis siparisWS;
+    private List<Siparis> listSiparis;
+    private String masaId;
+
+    public SiparisListeleBean() {
+
+        siparisWS = new WSSiparis();
+        listSiparis = new ArrayList<>();
+
+        masaId = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("MasaId");
+        listeleSiparisleri();
+
+    }
+
+    public void listeleSiparisleri() {
+
+        try {
+
+            listSiparis = siparisWS.siparisleriListele(Integer.parseInt(masaId));
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * @return the listSiparis
+     */
+    public List<Siparis> getListSiparis() {
+        return listSiparis;
+    }
+
+    /**
+     * @param listSiparis the listSiparis to set
+     */
+    public void setListSiparis(List<Siparis> listSiparis) {
+        this.listSiparis = listSiparis;
+    }
+
+    /**
+     * @return the masaId
+     */
+    public String getMasaId() {
+        return masaId;
+    }
+
+    /**
+     * @param masaId the masaId to set
+     */
+    public void setMasaId(String masaId) {
+        this.masaId = masaId;
+    }
+
+}

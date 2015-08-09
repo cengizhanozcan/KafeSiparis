@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+     
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Satış Raporu 
+        </ui:define>
+        <ui:define name="center">
+            <h:form>
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel for="startDate" value="Başlangıç Tarihi: " />
+                    <p:calendar id="startDate" value="#{satilanUrunRaporBean.startDate}" />
+                    
+                    <h:outputLabel for="finishDate" value="Bitiş Tarihi: " />
+                    <p:calendar id="finishDate" value="#{satilanUrunRaporBean.finishDate}" />
+                    
+                    <h:commandButton value="Getir" action="#{satilanUrunRaporBean.listOfReport()}" />
+                </h:panelGrid>
+                
+                <p:dataTable var="rapor" value="#{satilanUrunRaporBean.listReport}">
+                    
+                    <p:column headerText="Ürün Adı">
+                        <h:outputText value="#{rapor.stok.urun.urunAd}" />
+                    </p:column> 
+                    <p:column headerText="Toplam Satilan Adet">
+                        <h:outputText value="#{rapor.satilanAdet}" />
+                    </p:column>
+                    <p:column headerText="Birim Satış Fiyatı">
+                        <h:outputText value="#{rapor.stok.urun.satisFiyati}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Toplam Satış Fiyatı">
+                        <h:outputText value="#{rapor.stok.urun.satisFiyati * rapor.satilanAdet}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+                   
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+    
+</html>
+

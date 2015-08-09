@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2014 9:26:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Gelir" table="gelir" catalog="cafe">
+        <id name="gelirId" type="java.lang.Integer">
+            <column name="gelir_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="masa" class="model.Masa" fetch="select">
+            <column name="masa_id" not-null="true" />
+        </many-to-one>
+        <property name="miktar" type="float">
+            <column name="miktar" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="tarih" type="timestamp">
+            <column name="tarih" length="19" not-null="true" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

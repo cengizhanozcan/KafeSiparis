@@ -1,0 +1,103 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package bean.personel;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import model.Personel;
+import model.Yetki;
+import shared.StringDuzenle;
+import ws.WSPersonel;
+import ws.WSYetki;
+
+/**
+ *
+ * @author cengizhan
+ */
+@ManagedBean(name = "personelInsertBean")
+@ViewScoped
+public class PersonelInsertBean implements Serializable{
+
+    
+    private Personel personel;
+    private Yetki yetki;
+    private WSYetki yetkiWS;
+    private WSPersonel personelWS;
+    private List<Yetki> listYetki;
+    
+    public PersonelInsertBean() {
+        personel = new Personel();
+        yetki = new Yetki();
+        
+        personelWS = new WSPersonel();
+        yetkiWS = new WSYetki();
+        
+         
+        listeleYetki();
+    }
+    
+    public void listeleYetki(){
+        listYetki = new ArrayList<>(); 
+        listYetki = yetkiWS.listYetki();
+    }
+    
+    public void insertPersonel(){
+        
+        personel.setTelefon(StringDuzenle.editPhoneNumber(personel.getTelefon()));
+        personel.setIsAktif(true);
+        personel.setYetki(yetki);
+        
+        personelWS.insert(personel);
+        
+    }
+
+    /**
+     * @return the personel
+     */
+    public Personel getPersonel() {
+        return personel;
+    }
+
+    /**
+     * @param personel the personel to set
+     */
+    public void setPersonel(Personel personel) {
+        this.personel = personel;
+    }
+
+    /**
+     * @return the listYetki
+     */
+    public List<Yetki> getListYetki() {
+        return listYetki;
+    }
+
+    /**
+     * @param listYetki the listYetki to set
+     */
+    public void setListYetki(List<Yetki> listYetki) {
+        this.listYetki = listYetki;
+    }
+
+    /**
+     * @return the yetki
+     */
+    public Yetki getYetki() {
+        return yetki;
+    }
+
+    /**
+     * @param yetki the yetki to set
+     */
+    public void setYetki(Yetki yetki) {
+        this.yetki = yetki;
+    }
+    
+}

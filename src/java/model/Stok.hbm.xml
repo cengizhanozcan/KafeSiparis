@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 14, 2015 12:58:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Stok" table="stok" catalog="cafe" optimistic-lock="version">
+        <id name="stokId" type="java.lang.Integer">
+            <column name="stok_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="firma" class="model.Firma" fetch="select">
+            <column name="firma_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personel" class="model.Personel" fetch="select">
+            <column name="personel_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="urun" class="model.Urun" fetch="select">
+            <column name="urun_id" not-null="true" />
+        </many-to-one>
+        <property name="alinanAdet" type="int">
+            <column name="alinan_adet" not-null="true" />
+        </property>
+        <property name="kalanAdet" type="int">
+            <column name="kalan_adet" not-null="true" />
+        </property>
+        <property name="alisFiyati" type="float">
+            <column name="alis_fiyati" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="alisTarihi" type="timestamp">
+            <column name="alis_tarihi" length="0" not-null="true" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+        <set name="giders" table="gider" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stok_id" />
+            </key>
+            <one-to-many class="model.Gider" />
+        </set>
+        <set name="siparises" table="siparis" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="stok_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Siparis" />
+        </set>
+    </class>
+</hibernate-mapping>

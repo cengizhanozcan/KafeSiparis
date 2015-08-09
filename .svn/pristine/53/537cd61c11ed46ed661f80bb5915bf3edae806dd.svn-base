@@ -1,0 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws;
+
+import helper.UrunTuruHelper;
+import java.util.ArrayList;
+import java.util.List;
+import model.UrunTur;
+
+/**
+ *
+ * @author cengizhan
+ */
+public class WSUrunTuru {
+
+    private UrunTuruHelper urunTuruHelper;
+
+    public WSUrunTuru() {
+
+        urunTuruHelper = new UrunTuruHelper();
+    }
+
+    public void insert(UrunTur urunTuru) {
+
+        try {
+
+            urunTuruHelper.insert(urunTuru);
+        } catch (Exception e) {
+        }
+    }
+
+    public List<UrunTur> listele() {
+        List<UrunTur> list= new ArrayList<>();
+        
+        try {
+
+            list = urunTuruHelper.listele();
+
+        } catch (Exception e) {
+        }
+        
+        return list;
+    }
+    
+    public void update(UrunTur urunTuru){
+        try {
+            urunTuruHelper.update(urunTuru);
+        } catch (Exception e) {
+        }
+        
+    }
+}

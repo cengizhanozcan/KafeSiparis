@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Nov 25, 2014 9:26:16 PM by Hibernate Tools 3.6.0 -->
+<hibernate-mapping>
+    <class name="model.Masa" table="masa" catalog="cafe">
+        <id name="masaId" type="java.lang.Integer">
+            <column name="masa_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="kampanya" class="model.Kampanya" fetch="select">
+            <column name="kampanya_id"  />
+        </many-to-one>
+        <many-to-one name="masaNo" class="model.MasaNo" fetch="select">
+            <column name="masa_no_id" not-null="true" />
+        </many-to-one>
+        <property name="toplamTutar" type="java.lang.Float">
+            <column name="toplam_tutar" precision="12" scale="0" />
+        </property>
+        <property name="isKampanya" type="java.lang.Boolean">
+            <column name="is_kampanya" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+        <property name="isOdendi" type="boolean">
+            <column name="is_odendi" not-null="true" />
+        </property>
+        <set name="gelirs" table="gelir" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="masa_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Gelir" />
+        </set>
+        <set name="siparises" table="siparis" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="masa_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Siparis" />
+        </set>
+    </class>
+</hibernate-mapping>

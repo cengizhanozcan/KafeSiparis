@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 14, 2015 12:58:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Personel" table="personel" catalog="cafe" optimistic-lock="version">
+        <id name="personelId" type="java.lang.Integer">
+            <column name="personel_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="yetki" class="model.Yetki" fetch="select">
+            <column name="yetki_id" not-null="true" />
+        </many-to-one>
+        <property name="personelAd" type="string">
+            <column name="personel_ad" length="25" not-null="true" />
+        </property>
+        <property name="personelSoyad" type="string">
+            <column name="personel_soyad" length="20" not-null="true" />
+        </property>
+        <property name="tc" type="string">
+            <column name="tc" length="11" not-null="true" unique="true" />
+        </property>
+        <property name="kullaniciAd" type="string">
+            <column name="kullanici_ad" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="sifre" type="string">
+            <column name="sifre" length="30" not-null="true" />
+        </property>
+        <property name="telefon" type="string">
+            <column name="telefon" length="11" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+        <set name="stoks" table="stok" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="personel_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Stok" />
+        </set>
+        <set name="siparises" table="siparis" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="personel_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Siparis" />
+        </set>
+        <set name="logs" table="log" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="personel_id" not-null="true" />
+            </key>
+            <one-to-many class="model.Log" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top" >
+            Personel Analiz Raporu
+        </ui:define>
+        
+        <ui:define name="center">
+            <h:form>
+                <p:messages autoUpdate="true" />
+ 
+                <h:panelGrid columns="2">
+                    
+                    <h:outputLabel for="personelIda" value="Personel: " />
+                    <p:selectOneMenu id="personelIda" value="#{personelRaporBean.personel.personelId}">
+                        
+                        <f:selectItem itemValue="" itemLabel="Lütfen Personel Seçiniz"/>
+                        <f:selectItems var="personel" value="#{personelRaporBean.listPersonel}" 
+                                       itemValue="#{personel.personelId}" itemLabel="#{personel.personelAd} 
+                                       #{personel.personelSoyad}" />
+                       
+                    </p:selectOneMenu>
+                    
+                     
+                    <h:outputLabel for="startDate" value="Başlangıç Tarihi: " />
+                    <p:calendar id="startDate" value="#{personelRaporBean.startDate}" />
+
+                    <h:outputLabel for="finishDate" value="Bitiş Tarihi: " />
+                    <p:calendar id="finishDate" value="#{personelRaporBean.finishDate}" />
+
+                    <p:commandButton value="Getir" id="ajax" update="raporId" actionListener="#{personelRaporBean.raporListele()}"   />
+ 
+                        
+                     
+                </h:panelGrid>   
+                        
+                        <p:dataTable id="raporId" var="rapor" value="#{personelRaporBean.listRapor}">
+                           
+                            <p:columnGroup type="header">
+                                
+                                <p:row>
+                                    <p:column headerText="Ad Soyad" />
+                                    <p:column headerText="Satılan Ürün" />
+                                    <p:column headerText="Satılan Tutar" />
+                                    <p:column headerText="Satış Tarihi" />
+                                </p:row>
+                            </p:columnGroup>
+                            
+                            <p:column >
+                                <h:outputText value="#{rapor.personel.personelAd} #{rapor.personel.personelSoyad}"/>
+                            </p:column>
+                            
+                            <p:column >
+                                <h:outputText value="#{rapor.stok.urun.urunAd}" />
+                            </p:column> 
+                            
+                            <p:column  >
+                                <h:outputText value="#{rapor.satisFiyati}" >
+                                    <f:convertNumber pattern="#0.00 TL" />
+                                </h:outputText>
+                            </p:column>
+                            
+                            <p:column  >
+                                <h:outputText value="#{rapor.satisTarihi}" />
+                            </p:column>
+                            
+                            <p:columnGroup type="footer">
+                                <p:row>
+                                    <p:column colspan="2" style="text-align:right" footerText="Totals:" />
+                                    <p:column footerText="#{personelRaporBean.toplamTutar} TL" />
+ 
+                                </p:row>
+                            </p:columnGroup>
+                            
+                        </p:dataTable>
+                      
+                
+            </h:form>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>
+

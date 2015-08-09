@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package bean;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import model.Personel;
+import ws.WSLogin;
+
+/**
+ *
+ * @author cengizhan
+ */
+@ManagedBean
+@SessionScoped
+public class LoginBean {
+
+    /**
+     * Creates a new instance of LoginBean
+     */
+    private Personel personel;
+    private WSLogin loginWS;
+
+    public LoginBean() {
+        personel = new Personel();
+        loginWS = new WSLogin();
+    }
+
+    public void login() {
+
+        personel = loginWS.login(personel.getKullaniciAd(), personel.getSifre());
+        if (personel.getPersonelId()>0) {
+            System.out.println("uuuu");
+        }
+    }
+
+    /**
+     * @return the personel
+     */
+    public Personel getPersonel() {
+        return personel;
+    }
+
+    /**
+     * @param personel the personel to set
+     */
+    public void setPersonel(Personel personel) {
+        this.personel = personel;
+    }
+
+}

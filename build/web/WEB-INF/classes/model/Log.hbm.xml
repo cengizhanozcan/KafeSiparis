@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 14, 2015 12:58:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Log" table="log" catalog="cafe" optimistic-lock="version">
+        <id name="logId" type="java.lang.Integer">
+            <column name="log_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cihaz" class="model.Cihaz" fetch="select">
+            <column name="cihaz_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="logDurum" class="model.LogDurum" fetch="select">
+            <column name="log_durum_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personel" class="model.Personel" fetch="select">
+            <column name="personel_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tablo" class="model.Tablo" fetch="select">
+            <column name="tablo_id" not-null="true" />
+        </many-to-one>
+        <property name="primaryId" type="int">
+            <column name="primary_id" not-null="true" />
+        </property>
+        <property name="tarih" type="timestamp">
+            <column name="tarih" length="0" not-null="true" />
+        </property>
+        <property name="aciklama" type="string">
+            <column name="aciklama" length="65535" />
+        </property>
+        <property name="isAktif" type="boolean">
+            <column name="is_aktif" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

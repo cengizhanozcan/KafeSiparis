@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Firma Düzenle
+        </ui:define>
+        <ui:define name="center">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Firma Adı: "/>
+                    <p:inputText value="#{firmaBean.firma.firmaAd}" required="true"/>
+                    
+                    <h:outputText value="Telefon: " />
+                    <p:inputMask value="#{firmaBean.phone}" mask="(999) 999-9999"
+                                 size="13" maxlength="13" required="true"/>
+                    
+                    <h:outputText value="Fax: " />
+                    <p:inputMask value="#{firmaBean.fax}" mask="(999) 999-9999" size="13" maxlength="13"/>
+                    
+                    <h:outputText value="Adres: " />
+                    <p:inputTextarea value="#{firmaBean.firma.adres}" required="true"/> 
+                    
+                    <p:commandButton value="Kaydet" actionListener="#{firmaBean.insert()}" 
+                                     update="firmaTablo" />
+                </h:panelGrid>
+                
+                <p:dataTable id="firmaTablo" var="firma" value="#{firmaBean.firmaList}" >
+                
+                    <p:column headerText="Firma Adı: ">
+                        <h:outputText value="#{firma.firmaAd}" />
+                    </p:column>
+                    <p:column headerText="Telefon: ">
+                        <h:outputText value="#{firma.telefon}" />
+                    </p:column>
+                    <p:column headerText="Fax: ">
+                        <h:outputText value="#{firma.fax}" />
+                    </p:column>
+                    <p:column headerText="Adres: ">
+                        <h:outputText value="#{firma.adres}" />
+                    </p:column>
+                    <p:column headerText="">
+                        <p:commandButton value="Sil" action="#{firmaBean.delete()}" 
+                                             update="firmaTablo" >
+                            <f:setPropertyActionListener value="#{firma}" target="#{firmaBean.deletedFirma}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </ui:define>
+        
+    </ui:composition>
+</html>
+

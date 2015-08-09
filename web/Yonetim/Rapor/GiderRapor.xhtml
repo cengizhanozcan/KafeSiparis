@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="../../Templates/template.xhtml">
+        <ui:define name="top">
+            Gider
+        </ui:define>
+        <ui:define name="center">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="startDate" value="Başlangıç Tarihi: " />
+                    <p:calendar id="startDate" value="#{giderRaporBean.startDate}" />
+
+                    <h:outputLabel for="finishDate" value="Bitiş Tarihi: " />
+                    <p:calendar id="finishDate" value="#{giderRaporBean.endDate}" />
+                    <p:commandButton value="Getir" id="ajax" update="giderId" actionListener="#{giderRaporBean.listeleGider()}"   />
+
+
+                </h:panelGrid>
+
+                <p:dataTable id="giderId" var="gider" value="#{giderRaporBean.listGider}" >
+
+                    <p:columnGroup type="header">
+
+                        <p:row>
+                            <p:column headerText="Urun Adı" />
+                            <p:column headerText="Urun Türü" /> 
+                            <p:column headerText="Firma Adı" /> 
+                            <p:column headerText="Alinan Adet" />
+                            <p:column headerText="Birim fiyati" />
+                            <p:column headerText="Toplam Tutar" />
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.stok.urun.urunAd}" /> 
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.stok.urun.urunTur.turAdi}" />
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.stok.firma.firmaAd}" />
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.stok.alinanAdet}" />
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.stok.alisFiyati}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:column  >
+                        <h:outputText value="#{gider.miktar}" >
+                            <f:convertNumber pattern="#0.00 TL" />
+                        </h:outputText>
+                    </p:column>
+
+                    <p:columnGroup type="footer">
+                        <p:row>
+                            <p:column colspan="5" style="text-align:right" footerText="Toplam:" />
+                            <p:column footerText="#{giderRaporBean.toplamTutar} TL" />
+
+                        </p:row>
+                    </p:columnGroup>
+
+
+
+                </p:dataTable>
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

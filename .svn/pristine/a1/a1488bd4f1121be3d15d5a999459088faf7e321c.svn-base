@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cafe?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <property name="hibernate.connection.password">123123</property>
+    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.current_session_context_class">thread</property>
+    <mapping resource="model/Kampanya.hbm.xml"/>
+    <mapping resource="model/Yetki.hbm.xml"/>
+    <mapping resource="model/Urun.hbm.xml"/>
+    <mapping resource="model/DigerGider.hbm.xml"/>
+    <mapping resource="model/Personel.hbm.xml"/>
+    <mapping resource="model/Log.hbm.xml"/>
+    <mapping resource="model/Stok.hbm.xml"/>
+    <mapping resource="model/GiderTuru.hbm.xml"/>
+    <mapping resource="model/Cihaz.hbm.xml"/>
+    <mapping resource="model/Gelir.hbm.xml"/>
+    <mapping resource="model/Masa.hbm.xml"/>
+    <mapping resource="model/Siparis.hbm.xml"/>
+    <mapping resource="model/LogDurum.hbm.xml"/>
+    <mapping resource="model/Tablo.hbm.xml"/>
+    <mapping resource="model/Gider.hbm.xml"/>
+    <mapping resource="model/Firma.hbm.xml"/>
+    <mapping resource="model/MasaNo.hbm.xml"/>
+    <mapping resource="model/UrunTur.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

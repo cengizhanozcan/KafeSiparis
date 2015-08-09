@@ -1,0 +1,83 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws;
+
+import helper.MutfakHelper;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import model.Siparis;
+import org.json.simple.JSONArray;
+
+/**
+ *
+ * @author cengizhan
+ */
+@Path("/WSMutfak")
+public class WSMutfak {
+
+    MutfakHelper mutfakHelper;
+
+    public WSMutfak() {
+ 
+        mutfakHelper = new MutfakHelper();
+    }
+
+    @Path("/Listele")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONArray listeleMutfak() {
+
+        List<Siparis> list = new ArrayList<>();
+        JSONArray array = new JSONArray();
+        try {
+            list = mutfakHelper.list();
+        } catch (Exception e) {
+        }
+        
+        for(Siparis siparis : list){
+            Map map = new LinkedHashMap();
+            map.put("MasaNo", siparis.getMasa().getMasaNo().getNumara());
+            map.put("SiparisId", siparis.getSiparisId());
+            map.put("SatilanAdet", siparis.getSatilanAdet());
+            map.put("UrunAdi", siparis.getStok().getUrun().getUrunAd());
+ 
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(siparis.getSatisTarihi().getTime());
+            
+            String hours = calendar.get(Calendar.HOUR_OF_DAY)+"";
+            if (hours.length()==1) {
+                hours = "0"+hours;
+            }
+            
+            String minute = calendar.get(Calendar.MINUTE)+"";
+            if (minute.length()==1) {
+                minute = "0"+minute;
+            }
+            
+            String day = calendar.get(Calendar.DAY_OF_MONTH)+"";
+            
+            String month = calendar.get(Calendar.MONTH)+"";
+            int monthInt = Integer.parseInt(month) + 1;
+            
+            String year = calendar.get(Calendar.YEAR)+"";
+            
+            String date = hours+ ":" +minute + " - " +day+"/"+monthInt+"/"+year;
+            
+            map.put("SiparisTarihi", date);
+            
+            array.add(map);
+        }
+        return array;
+    }
+}

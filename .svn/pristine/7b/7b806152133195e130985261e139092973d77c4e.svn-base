@@ -1,0 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package helper;
+
+import java.util.ArrayList;
+import java.util.List;
+import model.Urun;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+
+/**
+ *
+ * @author cengizhan
+ */
+public class UrunHelper {
+
+    private SessionFactory sessionFactory;
+
+    public UrunHelper() {
+
+        sessionFactory = MyHibernateUtil.getSessionFactory();
+    }
+
+    //Stok bilgileri de buradan getirilcek değişeecek suanlık deneme
+    public List<Urun> listUrun() throws Exception{
+
+        Session session = null;
+        List<Urun> list = new ArrayList<>();
+
+        try {
+            session = sessionFactory.openSession();
+            list = session.createCriteria(Urun.class, "urun")
+                    .createAlias("urun.urunTur", "urunTur")
+                    .add(Restrictions.ne("urun.isAktif", false))
+                    .list();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            session.close();
+        }
+        return list;
+    }
+
+}

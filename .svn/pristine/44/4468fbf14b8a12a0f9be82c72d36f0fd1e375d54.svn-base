@@ -1,0 +1,65 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws;
+
+import helper.PersonelHelper;
+import helper.YetkiHelper;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import model.Personel;
+
+/**
+ *
+ * @author cengizhan
+ */
+@Path("/WSLogin")
+public class WSLogin {
+
+    PersonelHelper personelHelper;
+    YetkiHelper yetkiHelper; 
+    
+    public WSLogin() {
+        
+        //personelHelper = new PersonelHelper();
+        yetkiHelper = new YetkiHelper();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/Login")
+    public Personel login(String kullanciAdi, String sifre) {
+        Personel personel = new Personel();
+        personel.setKullaniciAd(kullanciAdi);
+        personel.setSifre(sifre);
+        //salih
+        try {
+
+           // return personelHelper.login(personel);
+        } catch (Exception e) {
+            System.out.println("KUllanici yok.");
+        }
+        return null;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/loginDenemeParametreli")
+    public String loginDenemeParametreli(String kullaniciAdi, String sifre) {
+
+        return "Hos Geldin " + kullaniciAdi + " Şifreniz: " + sifre;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/loginDeneme")
+    public String loginDeneme() {
+
+        return "Hos Geldin";
+    }
+
+}

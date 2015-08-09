@@ -1,0 +1,140 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws;
+
+import helper.PersonelHelper;
+import helper.YetkiHelper;
+import java.io.IOException;
+import java.io.Serializable;  
+import java.io.StringWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import model.Personel;
+import model.Yetki; 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+/**
+ *
+ * @author cengizhan
+ */
+@Path("/WSLogin")
+public class WSLogin implements Serializable {
+
+    PersonelHelper personelHelper;
+    YetkiHelper yetkiHelper;
+
+    public WSLogin() {
+
+        personelHelper = new PersonelHelper();
+
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Personel login(String kullanciAdi, String sifre) {
+
+        Personel personel = new Personel();
+        personel.setKullaniciAd(kullanciAdi);
+        personel.setSifre(sifre);
+
+        try {
+            return personelHelper.login(personel);
+        } catch (Exception e) {
+            System.out.println("Kullanici yok.");
+        }
+        return null;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/login/{user}/{password}")
+    public String loginPhone(@PathParam("user") String user, @PathParam("password") String password){
+    
+        Personel personel= new Personel();
+        personel.setKullaniciAd(user);
+        personel.setSifre(password);
+        Personel loginPersonel = new Personel();
+        
+        JSONObject obj =new JSONObject();
+        StringWriter out = new StringWriter();
+        
+        try {
+            loginPersonel = personelHelper.login(personel);
+            if (loginPersonel==null) {
+                return "personel yok";
+            }
+            
+            obj.put("userName", loginPersonel.getPersonelAd());
+            obj.put("userSurname", loginPersonel.getPersonelSoyad());
+            obj.writeJSONString(out);
+            
+            return out.toString();
+            
+        } catch (Exception e) {
+            
+        }
+        return null;
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/loginDenemeParametreli")
+    public String loginDenemeParametreli(@QueryParam("kullaniciAdi") String kullaniciAdi,
+            @QueryParam("sifre") String sifre) {
+
+        return "Hos Geldin " + kullaniciAdi + " Şifreniz: " + sifre;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/returnModel")
+    public Yetki returnModel() {
+
+        Yetki yetki = new Yetki("Admin", 1, true);
+        //Personel personel = new Persone",l(yetki, "Ahmet", "Çin", "1111111111", "ahmedSal", "123", true);
+        //deneme den = new deneme(1, "Ceng", "öz");
+           
+        return yetki;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/loginDenemeParametreli/{kullaniciAdi}/{sifre}")
+    public String loginDenemeParametreliPosta(@PathParam("kullaniciAdi") String kullaniciAdi,
+            @PathParam("sifre") String sifre) {
+StringWriter out = new StringWriter();
+         
+        try {
+            JSONObject obj =new JSONObject();
+            obj.put("uname", kullaniciAdi);
+            obj.put("password", sifre);
+            
+            obj.writeJSONString(out);
+        } catch (IOException ex) {
+            Logger.getLogger(WSLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return out.toString();
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/loginDeneme")
+    public String loginDeneme() {
+
+        return "Hos Geldin";
+    }
+
+}

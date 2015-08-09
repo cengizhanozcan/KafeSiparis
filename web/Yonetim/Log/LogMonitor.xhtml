@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+   
+    <ui:composition template="../../Templates/template.xhtml">
+        
+        <ui:define name="top">
+            Log Monitor
+        </ui:define>
+        
+        <ui:define name="center">
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="logTurId" value="Log Türü: " />
+                    <p:selectOneMenu id="logTurId" value="#{logMonitorBean.logDurumId}">
+                        <f:selectItem itemValue="" itemLabel="Log Türü Seçiniz" />
+                        <f:selectItems var="logDurum" value="#{logMonitorBean.listLogDurum}" 
+                                       itemLabel="#{logDurum.durumAd}" itemValue="#{logDurum.logDurumId}"/>
+                    
+                    </p:selectOneMenu>
+                    
+                     <p:commandButton value="Getir" id="ajax" update="logTableId" 
+                                      actionListener="#{logMonitorBean.listeleLog()}"/>
+                </h:panelGrid>
+                
+                <p:dataTable id="logTableId" var="log" value="#{logMonitorBean.listLog}">
+                    <p:column headerText="Log Türü">
+                        <h:outputText value="#{log.logDurum.durumAd}" />
+                    </p:column>
+                    <p:column headerText="Personel">
+                        <h:outputText value="#{log.personel.personelAd} #{log.personel.personelSoyad}" />
+                    </p:column>
+                    <p:column headerText="İşlem Yapılan Tablo">
+                        <h:outputText value="#{log.tablo.tabloAdi}" />
+                    </p:column> 
+                    <p:column headerText="Açıklama">
+                        <h:outputText value="#{log.aciklama}" />
+                    </p:column>
+                    <p:column headerText="Tarih">
+                        <h:outputText value="#{log.tarih}" />
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </h:form>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>
+

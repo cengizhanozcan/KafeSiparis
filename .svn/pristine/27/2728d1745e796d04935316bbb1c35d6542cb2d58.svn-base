@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="../../Templates/template.xhtml">
+
+        <ui:define name="top">
+            Ürün Türü Ekle
+        </ui:define>
+        <ui:define name="center">
+
+            <div class="row">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputText value="Tür adı: " />
+                        <h:inputText value="#{urunTuruInsertBean.urunTuru.turAdi}" />
+                         
+                    </h:panelGrid>
+                    
+                    <p:commandButton id="btnKaydet" value="Kaydet" type="submit"
+                                     action="#{urunTuruInsertBean.insertUrunTuru()}" />
+                    
+                </h:form>
+                
+                <p:dataTable id="dTUrunTuru" value="#{urunTuruInsertBean.listUrunTuru}" var="urunTuru">
+                
+                    <p:column headerText="Ürün Türü">
+                        <h:outputText value="#{urunTuru.turAdi}" />
+                    </p:column>
+                    <p:column >
+                        <p:commandButton value="Sil" action="#{urunTuruInsertBean.delete()}" update="dTUrunTuru">
+                            <f:setPropertyActionListener value="#{urunTuru}" target="#{urunTuruInsertBean.deleteUrunTuru}" />
+                        </p:commandButton>
+                    </p:column>
+                    
+                </p:dataTable>
+                
+            </div>
+        </ui:define>
+
+    </ui:composition>
+</html>
+

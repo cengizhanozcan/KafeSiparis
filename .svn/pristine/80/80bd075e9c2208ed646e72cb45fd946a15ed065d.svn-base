@@ -1,0 +1,133 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package ws;
+
+import helper.StokHelper;
+import helper.UrunHelper;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import model.Deneme;
+import model.Stok;
+import model.Urun;
+import model.UrunTur;
+import model.Yetki;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+/**
+ *
+ * @author cengizhan
+ */
+@Path("/WSUrun")
+public class WSUrun implements Serializable {
+
+    UrunHelper urunHelper;
+    StokHelper stokHelper;
+
+    public WSUrun() {
+        urunHelper = new UrunHelper();
+        stokHelper = new StokHelper();
+    }
+
+    @Path("/Listele")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JSONArray listeleUrun() throws ParseException {
+
+        List<Stok> list = new ArrayList<>();
+        JSONArray array = new JSONArray();
+
+        try {
+            list = urunHelper.listUrun();
+        } catch (Exception e) {
+
+            return null;
+        }
+
+        for (Stok list1 : list) {
+            Map map = new LinkedHashMap();
+            map.put("UrunId", list1.getUrun().getUrunId());
+            map.put("UrunAd", list1.getUrun().getUrunAd());
+            map.put("SatisFiyati", list1.getUrun().getSatisFiyati());
+            map.put("IsSatis", list1.getUrun().isIsSatis());
+            map.put("UrunTuruAd", list1.getUrun().getUrunTur().getTurAdi());
+            array.add(map);
+        }
+
+        return array;
+    }
+
+    @Path("/urunSiparis/{urunId}/{adet}/{masaId}/{personelId}")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public void urunSiparis(@PathParam("urunId") String urunId, @PathParam("adet") String adet,
+            @PathParam("masaId") String masaId, @PathParam("personelId") String personelId) {
+
+        try {
+
+            Urun urun = urunHelper.findUrun(urunId);
+            if (urun != null) {
+
+                if (urun.getToplamAdet() > 0 && urun.getToplamAdet() >= Integer.parseInt(adet)) {
+                    if (urun.isIsSatis()) {
+                        urun.setToplamAdet(urun.getToplamAdet() - Integer.parseInt(adet));
+
+                        urunHelper.update(urun);
+
+                        //Geçici kısım Daha sonradan dahil edilekecek bölüm
+                        // stokKontrolveStokdanDusum(urun);
+
+                        //Geçici kısım Daha sonradan dahil edilekecek bölüm Bitişşşşş
+                    } else {               //Eğer stokta isSatisi kapalıysa
+                        System.out.println("İs satiş = false Durumunda");
+                    }
+
+                } else {               //eğer stokta yeteri kadar ürün yoksa
+
+                    System.out.println("Yeteri kadar Ürün yok");
+                }
+
+            } else {
+                System.out.println("Sistemde ürün yook");
+            }
+
+        } catch (Exception e) {
+            System.out.println("WSUrun -> UrunSiparis: " + e.toString());
+        }
+
+    }
+
+    public void stokKontrolveStokdanDusum(Urun pUrun) {
+
+        if (pUrun != null && pUrun.getUrunId() != 0) {
+            try {
+
+                stokHelper.findStok(pUrun);
+
+            } catch (Exception e) {
+            }
+
+        }
+
+    }
+
+}

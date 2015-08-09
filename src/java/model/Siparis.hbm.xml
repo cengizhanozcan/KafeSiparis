@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 14, 2015 12:58:48 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="model.Siparis" table="siparis" catalog="cafe" optimistic-lock="version">
+        <id name="siparisId" type="java.lang.Integer">
+            <column name="siparis_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="masa" class="model.Masa" fetch="select">
+            <column name="masa_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="personel" class="model.Personel" fetch="select">
+            <column name="personel_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="stok" class="model.Stok" fetch="select">
+            <column name="stok_id" not-null="true" />
+        </many-to-one>
+        <property name="satilanAdet" type="int">
+            <column name="satilan_adet" not-null="true" />
+        </property>
+        <property name="satisFiyati" type="float">
+            <column name="satis_fiyati" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="satisTarihi" type="timestamp">
+            <column name="satis_tarihi" length="0" not-null="true" />
+        </property>
+        <property name="isIptal" type="java.lang.Boolean">
+            <column name="is_iptal" />
+        </property>
+        <property name="isAktif" type="java.lang.Boolean">
+            <column name="is_aktif" />
+        </property>
+        <property name="isOdendi" type="java.lang.Boolean">
+            <column name="is_odendi" />
+        </property>
+        <property name="isHazir" type="java.lang.Boolean">
+            <column name="is_hazir" />
+        </property>
+    </class>
+</hibernate-mapping>
